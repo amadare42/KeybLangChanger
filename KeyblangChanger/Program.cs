@@ -37,6 +37,7 @@ namespace KeyblangChanger
                         break;
                 }
                 Application.Exit();
+                return;
             }
 
             Application.EnableVisualStyles();
