@@ -80,5 +80,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\UpdateSchedulerTasks.ps1" Link="%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="Always" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

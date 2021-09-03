@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace KeyblangChanger
@@ -20,6 +21,10 @@ namespace KeyblangChanger
                     case "--help":
                     case "/?":
                         PrintHelp();
+                        break;
+                    
+                    case "task":
+                        RunTask(args[1]);
                         break;
                         
                     case "set":
@@ -44,13 +49,26 @@ namespace KeyblangChanger
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
-        
+
+        private static void RunTask(string s)
+        {
+            Process.Start(new ProcessStartInfo("schtasks", $"/Run /TN \"Keyblangchanger_{s}\"")
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardOutput = true
+            });
+        }
+
         public static void PrintHelp()
         {
             MessageBox.Show(@"Usage:
 set <layout id> | set <culture name> - sets layout of foreground window
 keyblangchanger.exe set en-us
 keyblangchanger.exe set 4090409
+
+task <layout id> | task <culture name> - quietly runs Keyblangchanger_<layout> task from scheduler
+keyblangchanger.exe task en-us 
 ");
         }
 
